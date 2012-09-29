@@ -19,3 +19,18 @@ go install gonav_cli
 bin/gonav -help
 
 Enjoy.
+
+
+Emacs
+=====
+
+It works particularly well with emacs when you add the this to your
+.emacs file:  
+`(add-hook 'shell-mode-hook 'compilation-shell-minor-mode)`
+
+To use, just type `M-x shell`, followed by Enter. Run gonav in that
+shell, with  
+`~/projects/gonav/gonav -root=/home/me/go/src`
+
+Type the name of the function or type you're looking for, and the
+files and line numbers will become clickable links. Epic.

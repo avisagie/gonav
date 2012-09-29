@@ -65,9 +65,8 @@ func processAst(a *ast.File, fset *token.FileSet, types, functions map[string][]
 		buf.Reset()
 		switch x := node.(type) {
 		case *ast.FuncDecl:
-			filename := fset.File(node.Pos()).Name()
-
-			fmt.Fprintf(buf, "%s:\n", filename)
+			pos := fset.File(node.Pos())
+			fmt.Fprintf(buf, "%s:%d: \n", pos.Name(), pos.Line(node.Pos()))
 			if !includeBody {
 				x.Body = nil
 			}
