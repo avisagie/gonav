@@ -1,17 +1,17 @@
 package main
 
 import (
-	rl "github.com/igoralmeida/readline-go"
-	"strings"
-	"fmt"
-	"gonav"
 	"flag"
+	"fmt"
+	rl "github.com/igoralmeida/readline-go"
+	"gonav"
 	"runtime"
+	"strings"
 )
 
 var (
-	prompt = "\n> "
-	root = flag.String("root", ".", "The root directory to find go files to index")
+	prompt      = "\n> "
+	root        = flag.String("root", ".", "The root directory to find go files to index")
 	includeBody = flag.Bool("body", false, "Include the function body in the results")
 )
 
@@ -52,7 +52,7 @@ func main() {
 			fmt.Println("Functions:")
 			fmt.Println("==========")
 			for _, f := range byFunction {
-				fmt.Println(*f)	
+				fmt.Println(*f)
 				fmt.Println("===========")
 			}
 		}

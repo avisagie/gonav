@@ -6,14 +6,14 @@ package gonav
 
 import (
 	"bytes"
+	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"fmt"
 	"os"
-	"strings"
 	"path/filepath"
+	"strings"
 )
 
 func Parse(expr string) {
@@ -42,14 +42,14 @@ func ProcessDir(root string, includeBody bool) (types, functions map[string][]*s
 
 	types = make(map[string][]*string)
 	functions = make(map[string][]*string)
-	
+
 	for _, fn := range files {
-		a, err  := parser.ParseFile(fset, fn, nil, parser.ParseComments)
+		a, err := parser.ParseFile(fset, fn, nil, parser.ParseComments)
 		if err != nil {
 			fmt.Println("Could not parse", fn, "-", err)
 			continue
 		}
-		
+
 		processAst(a, fset, types, functions, includeBody)
 	}
 
@@ -72,7 +72,7 @@ func processAst(a *ast.File, fset *token.FileSet, types, functions map[string][]
 				x.Body = nil
 			}
 			printer.Fprint(buf, fset, x)
-			
+
 			function := buf.String()
 			add(functions, x.Name.Name, &function)
 			if x.Recv != nil {
@@ -80,7 +80,7 @@ func processAst(a *ast.File, fset *token.FileSet, types, functions map[string][]
 				printer.Fprint(buf, fset, x.Recv.List[0].Type)
 				thetype := strings.Trim(buf.String(), "*")
 				add(types, thetype, &function)
-			}			
+			}
 		}
 		return true
 	})
@@ -89,6 +89,3 @@ func processAst(a *ast.File, fset *token.FileSet, types, functions map[string][]
 func add(things map[string][]*string, key string, value *string) {
 	things[key] = append(things[key], value)
 }
-
-
-
