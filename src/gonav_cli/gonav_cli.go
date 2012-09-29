@@ -29,6 +29,12 @@ func main() {
 			break
 		}
 		line := strings.TrimSpace(*res)
+
+		switch line {
+		case "quit", "q", "exit":
+			return
+		}
+
 		if line != "" {
 			rl.AddHistory(line)
 		}
