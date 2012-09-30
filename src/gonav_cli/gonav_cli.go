@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	rl "github.com/igoralmeida/readline-go"
 	"gonav"
-	"runtime"
 	"strings"
+	"readline"
 )
 
 var (
@@ -21,10 +20,8 @@ func main() {
 	flag.Parse()
 	types, functions := gonav.ProcessDir(*root, *includeBody)
 
-	runtime.GC()
-
 	for {
-		res := rl.ReadLine(&prompt)
+		res, _ := readline.ReadLine(&prompt)
 		if res == nil {
 			break
 		}
@@ -36,7 +33,7 @@ func main() {
 		}
 
 		if line != "" {
-			rl.AddHistory(line)
+			readline.AddHistory(line)
 		}
 
 		found := false
